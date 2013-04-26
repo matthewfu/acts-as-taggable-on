@@ -3,11 +3,11 @@ module ActsAsTaggableOn
     include ActsAsTaggableOn::Utils
 
     attr_accessible :name if defined?(ActiveModel::MassAssignmentSecurity)
-
+    attr_accessible :note
     ### ASSOCIATIONS:
 
     has_many :taggings, :dependent => :destroy, :class_name => 'ActsAsTaggableOn::Tagging'
-
+    has_many :check_and_responds, :dependent => :destroy,:class_name=> '::CheckAndRespond'
     ### VALIDATIONS:
 
     validates_presence_of :name
@@ -71,6 +71,9 @@ module ActsAsTaggableOn
     end
 
     ### INSTANCE METHODS:
+    def tagged_objects
+      taggings.collect{|t| t.taggable}
+    end
 
     def ==(object)
       super || (object.is_a?(Tag) && name == object.name)
