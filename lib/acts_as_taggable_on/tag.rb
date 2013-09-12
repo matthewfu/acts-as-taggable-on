@@ -6,6 +6,10 @@ module ActsAsTaggableOn
     attr_accessible :note
     ### ASSOCIATIONS:
 
+    attr_accessible :create_user, :class_name => 'User' #user_id
+    attr_accessible :private_tag #boolean
+    attr_accessible :class_name #string
+
     has_many :taggings, :dependent => :destroy, :class_name => 'ActsAsTaggableOn::Tagging'
     has_many :check_and_responds, :dependent => :destroy,:class_name=> '::CheckAndRespond'
     ### VALIDATIONS:
